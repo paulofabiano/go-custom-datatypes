@@ -1,9 +1,20 @@
 package main
 
-import "github.com/pluralsight/datatypes/organization"
+import (
+	"fmt"
+
+	"github.com/pluralsight/datatypes/organization"
+)
 
 func main() {
-	p := organization.NewPerson("James", "Wilson")
+	p := organization.NewPerson("Paulo", "Langer")
+
+	err := p.SetTwitterHandler("@paulolanger")
+	if err != nil {
+		fmt.Printf("An error occurred setting twitter handler: %s\n", err.Error())
+	}
+
 	println(p.ID())
 	println(p.FullName())
+	println(p.TwitterHandler())
 }
