@@ -42,6 +42,7 @@ type europeanUnionIdentifier struct {
 	country string
 }
 
+// Be careful with this "interface{}". This is ANYTHING!
 func NewEuropeanUnionIdentifier(id interface{}, country string) Citizen {
 	switch v := id.(type) {
 	case string:
@@ -54,6 +55,11 @@ func NewEuropeanUnionIdentifier(id interface{}, country string) Citizen {
 			id:      strconv.Itoa(v),
 			country: country,
 		}
+	case europeanUnionIdentifier:
+		return v
+	case Person:
+		euID, _ := v.Citizen.(europeanUnionIdentifier)
+		return euID
 	default:
 		panic("using an invalid type to identify the identifier")
 	}
